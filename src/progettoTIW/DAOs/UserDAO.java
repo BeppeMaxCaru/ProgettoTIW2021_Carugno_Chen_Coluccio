@@ -1,13 +1,10 @@
 package progettoTIW.DAOs;
 
 import java.sql.*;
-import java.sql.DriverManager;
 
-import progettoTIW.beans.Credentials;
 import progettoTIW.beans.User;
 
 public class UserDAO {
-	
 	private Connection connection;
 	
 	public UserDAO(Connection connection) {

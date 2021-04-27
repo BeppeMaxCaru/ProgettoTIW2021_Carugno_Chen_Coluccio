@@ -1,4 +1,4 @@
-package progettoTIW.servlets;
+package progettoTIW.controllers;
 
 import java.io.IOException;
 import java.sql.*;
