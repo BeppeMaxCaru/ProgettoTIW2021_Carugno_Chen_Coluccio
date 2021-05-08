@@ -26,8 +26,8 @@ import progettoTIW.DAOs.CategoryDAO;
 @WebServlet("/CreateCategory")
 public class CreateCategory extends HttpServlet{
     private static final long serialVersionUID = 1L;
-
- 
+    
+    
 
     private Connection connection = null;
     
@@ -59,14 +59,17 @@ public class CreateCategory extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int id = -1;
         String name = null;
+        String id_categoria_padre = null;
+        String nome_categoria_padre = null;
         boolean badRequest = false;
         try {
             //id = Integer.parseInt(request.getParameter("id"));
-            name = request.getParameter("name");
-            
-            if (name.isEmpty()) {
+            name = request.getParameter("nome_nuovacategoria");
+            id_categoria_padre = request.getParameter("id_categoria_padre");
+            nome_categoria_padre = request.getParameter("nome_categoria_padre");
+            //think a way to get child number
+            if (name.isEmpty() || id_categoria_padre.isEmpty() || nome_categoria_padre.isEmpty()) {
                 badRequest = true;
             }
             
@@ -74,9 +77,9 @@ public class CreateCategory extends HttpServlet{
                 badRequest = true;
             }*/
             
-        } catch (NullPointerException | NumberFormatException e) {
+        } catch (NullPointerException e) {
             badRequest = true;
-        }
+            }
         
         if (badRequest) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing or incorrect parameters");
@@ -85,8 +88,9 @@ public class CreateCategory extends HttpServlet{
         
         CategoryDAO categoryDAO = new CategoryDAO(connection);
         try {
+        	
             //categoryDAO.createCategory(id, name);
-            categoryDAO.createCategory(name);
+           // categoryDAO.createCategory(name,id_categoria_padre);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,

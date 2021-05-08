@@ -12,11 +12,17 @@ public class CategoryDAO {
 		this.connection = connection;
 	}
 	
-	public void createCategory(String name) throws SQLException {
-		//Check if the table is effectively called category
-		String query = "INSERT into categories (name) VALUES (?)";
+	public void createCategory(String nome, int id_padre/*, int subCategoriesListSize*/) throws SQLException {
+		//Check if the table is effectively called categoria
+		String query = "INSERT into categoria (nome_categoria, id_categoriapadre) VALUES (?, ?)";
 		try (PreparedStatement preparedStatement = connection.prepareStatement(query);) {
-			preparedStatement.setString(1, name);
+			//String temp = String.valueOf(id_padre) + String.valueOf(subCategoriesListSize + 1);
+			//from string to int
+			//int temp2 = Integer.parseInt(temp);
+			preparedStatement.setString(1, nome);
+			preparedStatement.setInt(2, id_padre);
+			//to change
+			//preparedStatement.setInt(1,temp2);
 			preparedStatement.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("ERRORE CREATE CATEGORY");
@@ -32,6 +38,11 @@ public class CategoryDAO {
 					Category category = new Category();
 					category.setId_categoria(result.getInt("id_categoria"));
 					category.setNome_categoria(result.getString("nome_categoria"));
+					try {
+						category.setId_categoriapadre(result.getInt("id_categoriapadre"));
+					} catch (Exception e) {
+						category.setId_categoriapadre(-1);
+					}
 					//Adds the new category
 					categories.add(category);
 				}
@@ -52,6 +63,7 @@ public class CategoryDAO {
 					Category category = new Category();
 					category.setId_categoria(result.getInt("id_categoria"));
 					category.setNome_categoria(result.getString("nome_categoria"));
+					category.setIsTop(true);
 					categories.add(category);
 				}
 				for (Category category : categories) {

@@ -10,26 +10,31 @@
  
 
 
-    <h1>Welcome to the Catalog Management Home Page</h1>
+    <h1>Benvenuto nel catalogo</h1>
 
  
-
+<!-- th:text="${category.getSubCategories.get(0).getNome_categoria}"> -->
     <ul>
         <li th:each="category : ${topcategories}"
-            th:text="${category.getSubCategories.get(0).getNome_categoria}"></li>
+            th:insert="@{WEB-INF/fragment.html} :: list (category)"></li>
     </ul>
-
- 
 
     <div  class="formdiv">
         <p>Complete the form to create a category</p>
         <form action="#" th:action="@{/CreateCategory}" method="POST">
             <fieldset>
-                <p>
-                    Name: <input type="text" name="name" required />
-                </p>
-                <input type="submit" name="Create Category">
-            </fieldset>
+            	<p>
+					Name: <input type="text" name="nome_nuovacategoria" required />
+				</p>
+				<p>
+					<label for="allcategories">Choose a father category:</label> <select
+						name="nome_categoria_padre" id="id_categoria_padre">
+						<option th:each="category : ${allcategories}" th:value="${category.nome_categoria}"
+							th:text="${category.nome_categoria}"></option>
+					</select>
+				</p>
+				<input type="submit" name="Create Category">
+			</fieldset>
         </form>
     </div>
     <!-- th:insert="@{WEB-INF/HomePage.html} :: list(category)"></li>

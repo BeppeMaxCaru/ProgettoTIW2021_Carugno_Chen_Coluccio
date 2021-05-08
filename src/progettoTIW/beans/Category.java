@@ -9,8 +9,9 @@ public class Category {
 	
 	private int id_categoria;
 	private String nome_categoria;
-	private int id_categoriapadre;
+	private int id_categoriapadre = -1;
 	private int num_figli;
+	private boolean isTop;
 	private ArrayList<Category> subCategories = new ArrayList<>();
 	//private Map<Category, Integer> subcategories = new HashMap<Category, Integer>();
 	
@@ -54,6 +55,13 @@ public class Category {
 		return this.subCategories;
 	}
 	
+	public boolean getIsTop() {
+		return this.isTop;
+	}
+	
+	public void setIsTop(boolean isTop) {
+		this.isTop = isTop;
+	}
 	/*public Map<Category, Integer> getSubcategories() {
 		return this.subcategories;
 	}*/

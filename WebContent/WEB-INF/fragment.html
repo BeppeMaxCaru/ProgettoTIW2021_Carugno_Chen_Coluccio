@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+ 	<!--/*  declare parameterized fragment called "list" */-->
+	<div th:fragment="list(category)">
+		
+		<div th:if="${category.isTop == true}" th:class="(${category.isTop}) ? 'top'">
+
+			<span th:text="${category.id_categoria + ' ' + category.nome_categoria}"></span>
+
+
+		</div>
+
+		<ul th:unless="${#lists.isEmpty(category.subCategories)}" class="category">
+
+			<li th:each="child : ${category.subCategories}"><span
+				th:text="${child.id_categoria + ' ' + child.nome_categoria}"></span>
+				<!--/* "this" indicates that the fragment to be used is in this file */-->
+				<!--/* HERE IS WHERE THERE IS THE RECURSION*/-->
+				<ul th:replace="this::list (${child})"></ul>
+			</li>
+
+		</ul>
+
+	</div>
+
+</body>
+
+</html>
