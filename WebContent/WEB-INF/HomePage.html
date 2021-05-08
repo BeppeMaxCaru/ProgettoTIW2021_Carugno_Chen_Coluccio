@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Catalog Home</title>
+<link rel="stylesheet" type="text/css" media="all"
+    href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
+</head>
+<body>
+
+ 
+
+
+    <h1>Welcome to the Catalog Management Home Page</h1>
+
+ 
+
+    <ul>
+        <!--/* the product parameter to use in the fragment is the current child */-->
+        <li th:each="category : ${topcategory}"
+            th:insert="@{WEB-INF/CatalogHome.html} :: list (category)"></li>
+    </ul>
+
+ 
+
+    <div  class="formdiv">
+        <p>Complete the form to create a category</p>
+        <form action="#" th:action="@{/CreateCategory}" method="POST">
+            <fieldset>
+                <p>
+                    Name: <input type="text" name="name" required />
+                </p>
+                <input type="submit" name="Create Category">
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

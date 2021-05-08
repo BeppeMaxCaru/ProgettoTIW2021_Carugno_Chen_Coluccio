@@ -21,9 +21,10 @@ public class CategoryDAO {
 		}
 	}
 	
+	
 	public List<Category> findAllCategories() throws SQLException {
 		List<Category> categories = new ArrayList<Category>();
-		try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM categories");) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM categoria");) {
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					Category category = new Category();
