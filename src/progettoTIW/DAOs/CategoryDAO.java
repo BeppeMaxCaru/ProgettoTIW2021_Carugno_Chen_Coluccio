@@ -18,6 +18,8 @@ public class CategoryDAO {
 		try (PreparedStatement preparedStatement = connection.prepareStatement(query);) {
 			preparedStatement.setString(1, name);
 			preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("ERRORE CREATE CATEGORY");
 		}
 	}
 	
@@ -28,32 +30,35 @@ public class CategoryDAO {
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					Category category = new Category();
-					category.setId(result.getInt("id"));
-					category.setName(result.getString("name"));
+					category.setId_categoria(result.getInt("id_categoria"));
+					category.setNome_categoria(result.getString("nome_categoria"));
 					//Adds the new category
 					categories.add(category);
 				}
-			}
+			} 
+		} catch (Exception e) {
+			System.out.println("ERRORE FIND ALL CAT");
 		}
 		return categories;
 	}
 	
-	public List<Category> findTopCategoriesAndSubtrees() throws SQLException {
+	public List<Category> findTopCategoriesAndSubCategories() throws SQLException {
 		List<Category> categories = new ArrayList<Category>();
 		try (PreparedStatement preparedStatement = connection
-				.prepareStatement("SELECT * FROM categories WHERE id NOT IN (select child FROM categories)");) {
+				.prepareStatement("SELECT * FROM categoria WHERE id_categoriapadre IS NULL");) {
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					Category category = new Category();
-					category.setId(result.getInt("id"));
-					category.setName(result.getString("name"));
-					category.setIsTop(true);
+					category.setId_categoria(result.getInt("id_categoria"));
+					category.setNome_categoria(result.getString("nome_categoria"));
 					categories.add(category);
 				}
 				for (Category category : categories) {
 					findSubcategories(category);
 				}
 			}
+		} catch (Exception e) {
+			System.out.println("FIND TOP CATEGORIES AND SUB");
 		}
 		return categories;
 	}
@@ -62,17 +67,19 @@ public class CategoryDAO {
 		Category cat = null;
 		try (PreparedStatement preparedStatement = connection.prepareStatement(
 				//Fix query
-				"SELECT C1.id, C1.name FROM categories JOIN categories P on P.id = S.child WHERE S.father = ?");) {
-			preparedStatement.setInt(1, category.getId());
+				"SELECT * FROM categoria WHERE id_categoriapadre = ?");) {
+			preparedStatement.setInt(1, category.getId_categoria());
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					cat = new Category();
-					cat.setId(result.getInt("id"));
-					cat.setName(result.getString("name"));
+					cat.setId_categoria(result.getInt("id_categoria"));
+					cat.setNome_categoria(result.getString("nome_categoria"));
 					findSubcategories(cat);
-					/*category.addSubcategory(cat);*/
+					category.getSubCategories().add(cat);
 				}
 			}
+		} catch (Exception e) {
+			System.out.println("ERRORE FIND SUB");
 		}
 	}
 	

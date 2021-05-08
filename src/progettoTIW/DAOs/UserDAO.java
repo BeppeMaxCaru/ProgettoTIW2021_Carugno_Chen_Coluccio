@@ -17,6 +17,7 @@ public class UserDAO {
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, password);
 			try (ResultSet result = preparedStatement.executeQuery()) {
+				//error insert twice login credentials
 				if (!result.isBeforeFirst()) 
 					return null;
 				else {

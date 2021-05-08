@@ -3,8 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Catalog Home</title>
-<link rel="stylesheet" type="text/css" media="all"
-    href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
+
 </head>
 <body>
 
@@ -16,9 +15,8 @@
  
 
     <ul>
-        <!--/* the product parameter to use in the fragment is the current child */-->
-        <li th:each="category : ${topcategory}"
-            th:insert="@{WEB-INF/CatalogHome.html} :: list (category)"></li>
+        <li th:each="category : ${topcategories}"
+            th:text="${category.nome_categoria}"></li>
     </ul>
 
  
@@ -34,5 +32,7 @@
             </fieldset>
         </form>
     </div>
+    <!-- th:insert="@{WEB-INF/HomePage.html} :: list(category)"></li>
+     -->
 </body>
 </html>

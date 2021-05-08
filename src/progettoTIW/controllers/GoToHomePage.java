@@ -87,11 +87,12 @@ public class GoToHomePage extends HttpServlet {
             throws ServletException, IOException {
         List<Category> allCategories = null;
         List<Category> topCategories = null;
+        List<Category> subCategories = null;
         
         CategoryDAO categoryDAO = new CategoryDAO(connection);
         try {
             allCategories = categoryDAO.findAllCategories();
-            topCategories = categoryDAO.findTopCategoriesAndSubtrees();
+            topCategories = categoryDAO.findTopCategoriesAndSubCategories();
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
@@ -102,8 +103,10 @@ public class GoToHomePage extends HttpServlet {
         String path = "/WEB-INF/HomePage.html";
         ServletContext servletContext = getServletContext();
         final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-        //ctx.setVariable("allproducts", allprods);
-       // ctx.setVariable("topproducts", topprods);
+        ctx.setVariable("allcategories", allCategories);
+        ctx.setVariable("topcategories", topCategories);
+        //this is too static make it dynamic so he can get every father subcategories
+        ctx.setVariable("subcategories", topCategories.get(0).getSubCategories());
         templateEngine.process(path, ctx, response.getWriter());
     }
 
