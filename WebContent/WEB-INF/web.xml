@@ -3,7 +3,7 @@
   <display-name>ProgettoTIW2021_Carugno_Chen_Coluccio</display-name>
   <context-param>
     <param-name>dbUrl</param-name>
-    <param-value>jdbc:mysql://localhost:3306/progettotiw</param-value>
+    <param-value>jdbc:mysql://localhost:3306/albero</param-value>
   </context-param>
   <context-param>
     <param-name>dbUser</param-name>
@@ -11,13 +11,13 @@
   </context-param>
   <context-param>
     <param-name>dbPassword</param-name>
-    <param-value>DataBases2021</param-value>
+    <param-value>Tuamadre123-=</param-value>
   </context-param>
   <context-param>
     <param-name>dbDriver</param-name>
     <param-value>com.mysql.cj.jdbc.Driver</param-value>
   </context-param>
   <welcome-file-list>
-    <welcome-file>login.html</welcome-file>
+    <welcome-file>UserLogin.html</welcome-file>
   </welcome-file-list>
 </web-app>

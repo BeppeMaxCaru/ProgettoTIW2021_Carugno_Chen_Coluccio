@@ -10,7 +10,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import it.polimi.tiw.projects.utils.ConnectionHandler;
+import progettoTIW.utils.ConnectionHandler;
 import progettoTIW.DAOs.UserDAO;
 import progettoTIW.beans.User;
 
@@ -73,11 +73,11 @@ public class CheckLogin extends HttpServlet {
 			ServletContext servletContext = getServletContext();
 			final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
 			context.setVariable("errorMsg", "Incorrect username or password");
-			path = "/LoginForm.html";
+			path = "/UserLogin.html";
 			templateEngine.process(path, context, response.getWriter());
 		} else {
 			request.getSession().setAttribute("username", user);
-			path = getServletContext().getContextPath() + "/GoToCatalog";
+			path = getServletContext().getContextPath() + "/GoToHomePage";
 			response.sendRedirect(path);
 		}
 

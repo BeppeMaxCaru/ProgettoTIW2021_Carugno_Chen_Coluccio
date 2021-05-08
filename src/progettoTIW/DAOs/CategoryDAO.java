@@ -3,7 +3,6 @@ package progettoTIW.DAOs;
 import java.sql.*;
 import java.util.*;
 
-import it.polimi.tiw.BOM.beans.BomProduct;
 import progettoTIW.beans.*;
 
 public class CategoryDAO {
@@ -70,7 +69,7 @@ public class CategoryDAO {
 					cat.setId(result.getInt("id"));
 					cat.setName(result.getString("name"));
 					findSubcategories(cat);
-					category.addSubcategory(cat);
+					/*category.addSubcategory(cat);*/
 				}
 			}
 		}

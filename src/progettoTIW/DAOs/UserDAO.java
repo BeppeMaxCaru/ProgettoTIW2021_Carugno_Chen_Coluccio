@@ -12,7 +12,7 @@ public class UserDAO {
 	}
 	
 	public User checkCredentials(String username, String password) throws SQLException {
-		String query = "SELECT username, password FROM user WHERE username = ? AND password = ?";
+		String query = "SELECT * FROM user WHERE username = ? AND password = ?";
 		try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, password);
