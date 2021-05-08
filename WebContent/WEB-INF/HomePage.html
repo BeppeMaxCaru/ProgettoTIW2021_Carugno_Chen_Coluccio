@@ -16,7 +16,7 @@
 
     <ul>
         <li th:each="category : ${topcategories}"
-            th:text="${category.nome_categoria}"></li>
+            th:text="${category.getSubCategories.get(0).getNome_categoria}"></li>
     </ul>
 
  

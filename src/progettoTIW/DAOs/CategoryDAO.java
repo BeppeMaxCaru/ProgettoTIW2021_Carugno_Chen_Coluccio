@@ -45,6 +45,7 @@ public class CategoryDAO {
 	public List<Category> findTopCategoriesAndSubCategories() throws SQLException {
 		List<Category> categories = new ArrayList<Category>();
 		try (PreparedStatement preparedStatement = connection
+				//can't create fathers in our project
 				.prepareStatement("SELECT * FROM categoria WHERE id_categoriapadre IS NULL");) {
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
@@ -63,10 +64,11 @@ public class CategoryDAO {
 		return categories;
 	}
 	
+	//recursive function
 	public void findSubcategories(Category category) throws SQLException {
 		Category cat = null;
 		try (PreparedStatement preparedStatement = connection.prepareStatement(
-				//Fix query
+				//
 				"SELECT * FROM categoria WHERE id_categoriapadre = ?");) {
 			preparedStatement.setInt(1, category.getId_categoria());
 			try (ResultSet result = preparedStatement.executeQuery();) {
@@ -74,6 +76,7 @@ public class CategoryDAO {
 					cat = new Category();
 					cat.setId_categoria(result.getInt("id_categoria"));
 					cat.setNome_categoria(result.getString("nome_categoria"));
+					//here recursion starts
 					findSubcategories(cat);
 					category.getSubCategories().add(cat);
 				}
