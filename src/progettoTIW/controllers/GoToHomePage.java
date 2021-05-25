@@ -41,16 +41,13 @@ public class GoToHomePage extends HttpServlet {
     private TemplateEngine templateEngine;
     private Connection connection = null;
 
- 
-
-
+    
     public GoToHomePage() {
         super();
         // TODO Auto-generated constructor stub
     }
 
- 
-
+    
     public void init() throws ServletException {
         try {
             ServletContext context = getServletContext();
@@ -61,8 +58,6 @@ public class GoToHomePage extends HttpServlet {
             Class.forName(driver);
             connection = DriverManager.getConnection(url, username, password);
 
- 
-
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             throw new UnavailableException("Can't load database driver");
@@ -71,8 +66,6 @@ public class GoToHomePage extends HttpServlet {
             throw new UnavailableException("Couldn't get db connection");
         }
 
- 
-
         ServletContext servletContext = getServletContext();
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
         templateResolver.setTemplateMode(TemplateMode.HTML);
@@ -80,7 +73,6 @@ public class GoToHomePage extends HttpServlet {
         this.templateEngine.setTemplateResolver(templateResolver);
         templateResolver.setSuffix(".html");
     }
-
  
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -102,16 +94,13 @@ public class GoToHomePage extends HttpServlet {
         // Redirect to the Home page and add missions to the parameters
         String path = "/WEB-INF/HomePage.html";
         ServletContext servletContext = getServletContext();
-        final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-        ctx.setVariable("allcategories", allCategories);
-        ctx.setVariable("topcategories", topCategories);
+        final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
+        context.setVariable("allcategories", allCategories);
+        context.setVariable("topcategories", topCategories);
+        context.setVariable("toMove", false);
         //this is too static make it dynamic so he can get every father subcategories
-        ctx.setVariable("subcategories", topCategories.get(0).getSubCategories());
-        templateEngine.process(path, ctx, response.getWriter());
+        templateEngine.process(path, context, response.getWriter());
     }
-
- 
-
 
     
     @Override

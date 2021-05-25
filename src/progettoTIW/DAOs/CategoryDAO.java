@@ -12,37 +12,65 @@ public class CategoryDAO {
 		this.connection = connection;
 	}
 	
-	public void createCategory(String nome, int id_padre/*, int subCategoriesListSize*/) throws SQLException {
+	///Volendo si potrebbe renderlo boolean invece di void
+	public void createCategory(String nome_categoria, String nome_categoria_padre) throws SQLException {
 		//Check if the table is effectively called categoria
-		String query = "INSERT into categoria (nome_categoria, id_categoriapadre) VALUES (?, ?)";
-		try (PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+		/*String query1 = "SELECT COUNT (*) FROM catalog WHERE father_category = ?";
+		try (PreparedStatement preparedStatement = connection.prepareStatement(query1);) {
+			preparedStatement.setString(1, nome_categoria_padre);
+			try (ResultSet result = preparedStatement.executeQuery();) {
+				//Stops method if there are already 9 subcategories
+		        System.out.println(nome_categoria + nome_categoria_padre);
+				if (result.last()) {
+					if (result.getInt("COUNT (*)")==9) //return false;
+						return;
+				}
+			}
+		} catch (Exception e) {
+			//return false;
+			return;
+		}*/
+		
+		String query2 = "INSERT INTO catalog (category, father_category) VALUES (?, ?) ";
+		try (PreparedStatement preparedStatement = connection.prepareStatement(query2);) {
 			//String temp = String.valueOf(id_padre) + String.valueOf(subCategoriesListSize + 1);
 			//from string to int
 			//int temp2 = Integer.parseInt(temp);
-			preparedStatement.setString(1, nome);
-			preparedStatement.setInt(2, id_padre);
+			preparedStatement.setString(1, nome_categoria);
+			preparedStatement.setString(2, nome_categoria_padre);
+			//preparedStatement.setString(3, nome_categoria_padre);
+			//preparedStatement.setString(3, nome_categoria_padre);
 			//to change
 			//preparedStatement.setInt(1,temp2);
 			preparedStatement.executeUpdate();
+			//return true;
+			//return;
 		} catch (Exception e) {
-			System.out.println("ERRORE CREATE CATEGORY");
+			//return false;
+			return;
 		}
 	}
 	
+	public void moveCategory(String categoria, String categoria_padre) {
+		
+		//String query = ""
+		
+	}
 	
 	public List<Category> findAllCategories() throws SQLException {
 		List<Category> categories = new ArrayList<Category>();
-		try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM categoria");) {
+		try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM catalog");) {
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					Category category = new Category();
-					category.setId_categoria(result.getInt("id_categoria"));
-					category.setNome_categoria(result.getString("nome_categoria"));
-					try {
+					//category.setId_categoria(result.getInt("id_categoria"));
+					category.setNome_categoria(result.getString("category"));
+					category.set_nomeCategoriaPadre(result.getString("father_category"));
+					/*try {
 						category.setId_categoriapadre(result.getInt("id_categoriapadre"));
 					} catch (Exception e) {
 						category.setId_categoriapadre(-1);
-					}
+					}*/
 					//Adds the new category
 					categories.add(category);
 				}
@@ -57,12 +85,12 @@ public class CategoryDAO {
 		List<Category> categories = new ArrayList<Category>();
 		try (PreparedStatement preparedStatement = connection
 				//can't create fathers in our project
-				.prepareStatement("SELECT * FROM categoria WHERE id_categoriapadre IS NULL");) {
+				.prepareStatement("SELECT * FROM catalog WHERE father_category IS NULL");) {
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					Category category = new Category();
-					category.setId_categoria(result.getInt("id_categoria"));
-					category.setNome_categoria(result.getString("nome_categoria"));
+					//category.setId_categoria(result.getInt("id_categoria"));
+					category.setNome_categoria(result.getString("category"));
 					category.setIsTop(true);
 					categories.add(category);
 				}
@@ -81,16 +109,17 @@ public class CategoryDAO {
 		Category cat = null;
 		try (PreparedStatement preparedStatement = connection.prepareStatement(
 				//
-				"SELECT * FROM categoria WHERE id_categoriapadre = ?");) {
-			preparedStatement.setInt(1, category.getId_categoria());
+				"SELECT * FROM catalog WHERE father_category = ?");) {
+			preparedStatement.setString(1, category.getNome_categoria());
 			try (ResultSet result = preparedStatement.executeQuery();) {
 				while (result.next()) {
 					cat = new Category();
-					cat.setId_categoria(result.getInt("id_categoria"));
-					cat.setNome_categoria(result.getString("nome_categoria"));
+					//cat.setId_categoria(result.getInt("id_categoria"));
+					cat.setNome_categoria(result.getString("category"));
+					cat.set_nomeCategoriaPadre(result.getString("father_category"));
+					category.getSubCategories().add(cat);
 					//here recursion starts
 					findSubcategories(cat);
-					category.getSubCategories().add(cat);
 				}
 			}
 		} catch (Exception e) {

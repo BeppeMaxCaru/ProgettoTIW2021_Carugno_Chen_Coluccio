@@ -59,17 +59,18 @@ public class CreateCategory extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String name = null;
-        String id_categoria_padre = null;
+        String nome_categoria = null;
+        //int id_categoria_padre;
         String nome_categoria_padre = null;
         boolean badRequest = false;
         try {
             //id = Integer.parseInt(request.getParameter("id"));
-            name = request.getParameter("nome_nuovacategoria");
-            id_categoria_padre = request.getParameter("id_categoria_padre");
+            nome_categoria = request.getParameter("nome_nuovacategoria");
+            //id_categoria_padre = Integer.parseInt(request.getParameter("id_categoria_padre"));
             nome_categoria_padre = request.getParameter("nome_categoria_padre");
-            //think a way to get child number
-            if (name.isEmpty() || id_categoria_padre.isEmpty() || nome_categoria_padre.isEmpty()) {
+            //System.out.println(nome_categoria + nome_categoria_padre);
+            //Father category name can be null
+            if (nome_categoria == null || nome_categoria.isEmpty() || nome_categoria_padre == null || nome_categoria_padre.isEmpty()) {
                 badRequest = true;
             }
             
@@ -85,12 +86,11 @@ public class CreateCategory extends HttpServlet{
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing or incorrect parameters");
             return;
         }
-        
         CategoryDAO categoryDAO = new CategoryDAO(connection);
         try {
         	
             //categoryDAO.createCategory(id, name);
-           // categoryDAO.createCategory(name,id_categoria_padre);
+        	categoryDAO.createCategory(nome_categoria, nome_categoria_padre);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
@@ -113,7 +113,5 @@ public class CreateCategory extends HttpServlet{
             }
         }
     }
-
- 
 
 }

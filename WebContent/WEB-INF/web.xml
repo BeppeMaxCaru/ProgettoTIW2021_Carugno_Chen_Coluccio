@@ -3,7 +3,7 @@
   <display-name>ProgettoTIW2021_Carugno_Chen_Coluccio</display-name>
   <context-param>
     <param-name>dbUrl</param-name>
-    <param-value>jdbc:mysql://localhost:3306/albero</param-value>
+    <param-value>jdbc:mysql://localhost:3306/optimizedtiwcategoriescatalog</param-value>
   </context-param>
   <context-param>
     <param-name>dbUser</param-name>
@@ -11,7 +11,7 @@
   </context-param>
   <context-param>
     <param-name>dbPassword</param-name>
-    <param-value>Tuamadre123-=</param-value>
+    <param-value>DataBases2021</param-value>
   </context-param>
   <context-param>
     <param-name>dbDriver</param-name>

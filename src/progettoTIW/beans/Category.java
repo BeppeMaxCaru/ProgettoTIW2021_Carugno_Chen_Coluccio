@@ -10,10 +10,12 @@ public class Category {
 	private int id_categoria;
 	private String nome_categoria;
 	private int id_categoriapadre = -1;
+	private String nome_categoria_padre;
 	private int num_figli;
 	private boolean isTop;
 	private ArrayList<Category> subCategories = new ArrayList<>();
 	//private Map<Category, Integer> subcategories = new HashMap<Category, Integer>();
+	private boolean isToMove = false;
 	
 	public Category() {
 		
@@ -41,6 +43,14 @@ public class Category {
 	
 	public void setId_categoriapadre(int id) {
 		this.id_categoriapadre = id;
+	}
+	
+	public String get_nomeCategoriaPadre() {
+		return this.nome_categoria_padre;
+	}
+	
+	public void set_nomeCategoriaPadre(String nome_categoria_padre) {
+		this.nome_categoria_padre = nome_categoria_padre;
 	}
 	
 	public int getNum_figli() {
@@ -74,6 +84,10 @@ public class Category {
 	public void removeSubCategory(Category category) {
 		this.subcategories.remove(category);
 	}*/
+	
+	public void setIsToMove(boolean isToMove) {
+		this.isToMove = isToMove;
+	}
 	
 	public String toString() {
 		StringBuffer buffer = new StringBuffer("Category");
