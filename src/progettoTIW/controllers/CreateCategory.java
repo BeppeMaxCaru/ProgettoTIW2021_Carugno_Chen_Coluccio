@@ -64,19 +64,12 @@ public class CreateCategory extends HttpServlet{
         String nome_categoria_padre = null;
         boolean badRequest = false;
         try {
-            //id = Integer.parseInt(request.getParameter("id"));
             nome_categoria = request.getParameter("nome_nuovacategoria");
-            //id_categoria_padre = Integer.parseInt(request.getParameter("id_categoria_padre"));
             nome_categoria_padre = request.getParameter("nome_categoria_padre");
-            //System.out.println(nome_categoria + nome_categoria_padre);
             //Father category name can be null
             if (nome_categoria == null || nome_categoria.isEmpty() || nome_categoria_padre == null || nome_categoria_padre.isEmpty()) {
                 badRequest = true;
             }
-            
-            /*if (id < 0 || name.isEmpty()) {
-                badRequest = true;
-            }*/
             
         } catch (NullPointerException e) {
             badRequest = true;
@@ -89,7 +82,6 @@ public class CreateCategory extends HttpServlet{
         CategoryDAO categoryDAO = new CategoryDAO(connection);
         try {
         	
-            //categoryDAO.createCategory(id, name);
         	categoryDAO.createCategory(nome_categoria, nome_categoria_padre);
         } catch (Exception e) {
             e.printStackTrace();

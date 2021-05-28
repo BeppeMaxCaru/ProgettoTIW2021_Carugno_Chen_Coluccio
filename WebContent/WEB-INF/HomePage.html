@@ -11,13 +11,30 @@
 
  
 <!-- th:text="${category.getSubCategories.get(0).getNome_categoria}"> -->
-    <ol>
-        <li th:each="category : ${topcategories}"
-        	th:insert="@{WEB-INF/fragment.html} :: list (category)"></li>
-        	<!--
-            th:insert="@{WEB-INF/fragment.html} :: list (category)"></li>
-            -->
-    </ol>
+	<div th:if="${toMove==false}">
+	    <ol>
+	        <li th:each="category : ${topcategories}"
+	        	
+	        	th:insert="@{WEB-INF/fragment.html} :: list (category)" ></li>
+	        	<!--
+	            th:insert="@{WEB-INF/fragment.html} :: list (category)"></li>
+	            -->
+	    </ol>
+    </div>
+    
+    <div th:if="${toMove==true}">
+	    <ol>
+	        <li th:each="category : ${topcategories}"
+	        	
+	        	th:insert="@{WEB-INF/fragment3.html} :: list (category)" ></li>
+	        	<!--
+	            th:insert="@{WEB-INF/fragment.html} :: list (category)"></li>
+	            -->
+	    </ol>
+    </div>
+    
+    
+    <!--
 	    <div class="formdiv">
 	        <p>Complete the form to create a category</p>
 	        <form action="#" th:action="@{/CreateCategory}" method="POST">
@@ -36,6 +53,11 @@
 				</fieldset>
 	        </form>
 	    </div>
+	    -->
+	    
+	    <div th:if="${toMove==false}" th:insert="@{WEB-INF/fragment2.html}">
+	    </div>
+	    
     <!-- th:insert="@{WEB-INF/HomePage.html} :: list(category)"></li>
      -->
 </body>

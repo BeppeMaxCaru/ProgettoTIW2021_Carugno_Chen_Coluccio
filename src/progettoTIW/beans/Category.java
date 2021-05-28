@@ -15,7 +15,7 @@ public class Category {
 	private boolean isTop;
 	private ArrayList<Category> subCategories = new ArrayList<>();
 	//private Map<Category, Integer> subcategories = new HashMap<Category, Integer>();
-	private boolean isToMove = false;
+	private boolean isToMove;
 	
 	public Category() {
 		
@@ -85,10 +85,6 @@ public class Category {
 		this.subcategories.remove(category);
 	}*/
 	
-	public void setIsToMove(boolean isToMove) {
-		this.isToMove = isToMove;
-	}
-	
 	public String toString() {
 		StringBuffer buffer = new StringBuffer("Category");
 		buffer.append(" id: ");
@@ -96,6 +92,14 @@ public class Category {
 		buffer.append(" name: ");
 		buffer.append(this.nome_categoria);
 		return buffer.toString();
+	}
+
+	public boolean isToMove() {
+		return this.isToMove;
+	}
+
+	public void setToMove(boolean isToMove) {
+		this.isToMove = isToMove;
 	}
 	
 	

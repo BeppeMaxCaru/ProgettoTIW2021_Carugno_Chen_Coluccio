@@ -20,7 +20,7 @@
 			<li th:each="child : ${category.subCategories}"><span
 				th:text="${child.nome_categoria}"></span><a
 				
-				th:href="@{/MoveCategory(category=${child.getNome_categoria}, father_category=${child.get_nomeCategoriaPadre})}">Move
+				th:href="@{/MoveCategory(category=${child.getNome_Categoria}, father_category=${child.get_nomeCategoriaPadre})}">Move
 
 					category</a>
 				<!--/* "this" indicates that the fragment to be used is in this file */-->
