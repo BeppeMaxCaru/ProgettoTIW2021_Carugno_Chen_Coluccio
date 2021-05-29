@@ -83,7 +83,7 @@ public class GoToHomePage extends HttpServlet {
         
         CategoryDAO categoryDAO = new CategoryDAO(connection);
         try {
-            //allCategories = categoryDAO.findAllCategories();
+            allCategories = categoryDAO.findAllCategories();
             topCategories = categoryDAO.findTopCategoriesAndSubCategories();
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class GoToHomePage extends HttpServlet {
         String path = "/WEB-INF/HomePage.html";
         ServletContext servletContext = getServletContext();
         final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
-        //context.setVariable("allcategories", allCategories);
+        context.setVariable("allcategories", allCategories);
         context.setVariable("topcategories", topCategories);
         context.setVariable("toMove", false);
         //this is too static make it dynamic so he can get every father subcategories

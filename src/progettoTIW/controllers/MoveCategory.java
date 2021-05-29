@@ -95,7 +95,7 @@ public class MoveCategory extends HttpServlet{
         
         CategoryDAO categoryDAO = new CategoryDAO(connection);
         try {
-        	//allCategories = categoryDAO.findAllCategories();
+        	allCategories = categoryDAO.findAllCategories();
         	topCategories = categoryDAO.findTopCategoriesAndSubCategoriesSecondVersion(nome_categoria);
         	//categoryToMove = categoryDAO.getCategoryToMove(nome_categoria);
         	//System.out.println(categoryToMove.getNome_categoria());
@@ -117,7 +117,7 @@ public class MoveCategory extends HttpServlet{
         //System.out.println(object.toString());
         
         final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
-        //context.setVariable("allcategories", allCategories);
+        context.setVariable("allcategories", allCategories);
         context.setVariable("topcategories", topCategories);
         //context.setVariable("categoryToMove", categoryToMove);
         context.setVariable("toMove", true);
