@@ -65,7 +65,7 @@ public class MoveHere extends HttpServlet {
     	String nome_categoria = null;
     	String nome_categoria_padre = null;
         boolean badRequest = false;
-        //List<Category> allCategories = null;
+        List<Category> allCategories = null;
         List<Category> topCategories = null;
         //Category categoryToMove = null;
         String category = null;
@@ -104,6 +104,7 @@ public class MoveHere extends HttpServlet {
         	//Modifica il database
         	categoryDAO.updateTree(category, nome_categoria);
         	topCategories = categoryDAO.findTopCategoriesAndSubCategories();
+        	allCategories = categoryDAO.findAllCategories();
         	
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +123,7 @@ public class MoveHere extends HttpServlet {
         //System.out.println(object.toString());
         
         final WebContext context = new WebContext(request, response, servletContext, request.getLocale());
-        //context.setVariable("allcategories", allCategories);
+        context.setVariable("allcategories", allCategories);
         context.setVariable("topcategories", topCategories);
         //context.setVariable("categoryToMove", categoryToMove);
         context.setVariable("toMove", false);
