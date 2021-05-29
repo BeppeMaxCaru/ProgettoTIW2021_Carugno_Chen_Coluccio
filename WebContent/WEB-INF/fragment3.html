@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+ 	<!--/*  declare parameterized fragment called "list" */-->
+	<div th:fragment="list(category)">
+		
+		<div th:if="${category.isTop == true}" th:class="(${category.isTop}) ? 'top'">
+			<div th:switch="${category.isToMove}">
+			<span th:case="${true}" th:text="${category.nome_categoria}" style="color:red;"></span>
+			<span th:case="${false}" th:text="${category.nome_categoria}" ></span>
+			
+			<a
+				
+				th:if="${category.isToMove == true}" th:href="@{/MoveHere(category=${child.getNome_Categoria})}">Move
+
+					here</a>
+			<!-- 		
+			<a
+				
+				th:if="${category.isToMove == false}" style="color:red;" >Move
+
+					top red</a> -->
+
+			</div>
+		</div>
+		<ol th:unless="${#lists.isEmpty(category.subCategories)}" class="category">
+			<li th:each="child : ${category.subCategories}">
+			<div th:if="${child.isToMove == true}">
+				<span
+				 	th:text="${child.nome_categoria}" style="color:red;">
+				 </span>
+			</div>
+			<div th:if="${child.isToMove == false}" >
+			<span
+				th:text="${child.nome_categoria}"></span>
+				<a th:href="@{/MoveHere(category=${child.getNome_Categoria})}">Move
+
+					here</a>
+				<!--	
+				<a
+				
+				th:if="${category.isToMove == false}" style="color:red;">Move
+
+					here</a>
+					-->
+			
+			</div>
+								<!--/* "this" indicates that the fragment to be used is in this file */-->
+				<!--/* HERE IS WHERE THERE IS THE RECURSION*/-->
+				<ol th:replace="this::list (${child})"></ol>
+			</li>
+
+		</ol>		
+
+	</div>
+
+</body>
+
+</html>
