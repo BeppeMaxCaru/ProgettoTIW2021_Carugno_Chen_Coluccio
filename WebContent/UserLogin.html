@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <title>Login page, TIW group15</title>
+<script src="utils.js" charset="utf-8" defer></script>
+<script src="loginManagement.js" charset="utf-8" defer></script>
 </head>
 <body align="center">
-<form method="post" action="CheckLogin">
+<form action="#">
 <h1>Login Page</h1>
 Insert username and password
 <p>
-<input type="text" id="username" placeholder="Username" name="username">
+<input type="text" id="username" placeholder="Username" name="username" required>
 <p>
-<input type="password" id="password" placeholder="Password" name="password">
+<input type="password" id="password" placeholder="Password" name="password" required>
 <p>
-<button type="submit" value="login">Login</button>
+<button id="loginbutton" type="button" value="login">Login</button>
 </form>
 </body>
 </html>
