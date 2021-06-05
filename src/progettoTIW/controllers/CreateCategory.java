@@ -67,6 +67,8 @@ public class CreateCategory extends HttpServlet{
             nome_categoria = request.getParameter("nome_nuovacategoria");
             nome_categoria_padre = request.getParameter("nome_categoria_padre");
             //Father category name can be null
+            System.out.println(nome_categoria);
+            System.out.println(nome_categoria_padre);
             if (nome_categoria == null || nome_categoria.isEmpty() || nome_categoria_padre == null || nome_categoria_padre.isEmpty()) {
                 badRequest = true;
             }

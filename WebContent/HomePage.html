@@ -3,8 +3,10 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Catalog Home</title>
+
 <script src="utils.js" charset="utf-8" defer></script>
 <script src="catalogManagement.js" charset="utf-8" defer></script>
+
 </head>
 <body>
 
@@ -16,26 +18,25 @@
 	</div>
 	
 	<div>
-	<button id="confirm" onclick="confirm()" hidden>confirm</button>
-	<button id="deny" onclick="deny()" hidden>deny</button>
-	<button id="save" onclick="save()" hidden>save</button>
-	
+	<button id="confirmbutton" onclick="confirm()">confirm</button>
+	<button id="denybutton" onclick="deny()">deny</button>
+	<button id="savebutton" onclick="save()">save</button>	
 	</div>
 	
-	<div class="formdiv">
+	<div id="divform" class="formdiv">
 	        <p>Complete the form to create a category</p>
 	        <form id="createcategoryform" action="#">
 	            <fieldset>
 	            	<p>
-						Name: <input type="text" name="nome_nuovacategoria" required />
+						Name: <input id="nuovonomecat" type="text" name="nome_nuovacategoria" required/>
 					</p>
 					<p>
 						<label>Choose a father category:</label> <select
-							id="categoria" name="nome_categoria_padre">
+							id="listacategorie" name="nome_categoria_padre">
 							
 						</select>
 					</p>
-					<input type="button" name="Create Category" value="Create category">
+					<button id="buttonhomepage" type="button" name="Create Category" value="Create category">Create category</button>
 				</fieldset>
 	        </form>
 	    </div>
