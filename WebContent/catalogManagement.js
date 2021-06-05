@@ -318,7 +318,7 @@
 						
 						findSubCategories(sub, newOl);
 						
-						cattomove = null
+						//cattomove = null
 						
 					})
 				}
